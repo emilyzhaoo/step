@@ -18,7 +18,8 @@
 function addRandomFact() {
   const facts = ['I love tropical destinations and spending time by the ocean!', 'I have torn the ACLs in both my knees playing soccer (at separate times). I got surgery to repair both of them.', 'I am a huge cat person (but I love most pets too).', 'I am a huge foodie. My favourite foods are sushi, thai basil beef and tacos.',
   'I have a huge sweet tooth for desserts, especially any homemade baked good.', 'I\m a pretty decent mariokart player.', 'I love being creative. I like drawing, painting, and any form of art.'];
-  // Pick a random fact.
+
+  // Pick a random greeting.
   const fact = facts[Math.floor(Math.random() * facts.length)];
 
   // Add it to the page.
