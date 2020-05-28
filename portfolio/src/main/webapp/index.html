@@ -7,12 +7,72 @@
     <script src="script.js"></script>
   </head>
   <body>
+      <div id="header">
+      <h1>Emily Zhao</h1>
+      <h2>Hi! I'm Emily and this is my portfolio. Get ready to learn more about me!</h2>
+      </div>
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
-      <button onclick="addRandomGreeting()">Hello</button>
-      <div id="greeting-container"></div>
+      <h2>About Me</h2>
+      <p style="text-align:justify">I am a computer science student at Queen's University going into third year! My degree plans are to pursue a Major in Computing with a concentration in biomedical computation.</p>
+      <img src="/images/me.jpg" width="375" height="560" class="center">
+    <p style="text-align:justify">I grew up in Ottawa, Ontario with my sister and parents. I love spending time with my friends, whether it's going to music festivals, restaurants, playing wii games or even just picnics in the park.
+        I really enjoy staying active. In high school, I played soccer and basketball competitively as well as volleyball with my school team. As much as I love jam-packing my days, I also enjoy staying in
+        and catching up with what I'm currently watching on Netflix. </p>
+        <br>
+        <figure style="display:flex">
+            <img src="/images/family.jpg" width="275" height="300" style="margin: 0px 20px">
+            <img src="/images/toronto.jpg" width="275" height="300" style="margin: 0px 20px"> 
+            <img src="/images/hoco.jpg" width="275" height="300" style="margin:0px 20px">
+        </figure>
+        <br>
+        <p style="text-align:center">Click here to generate a random fact about me:</p>
+      <button id="buttons" class="center" onclick="addRandomFact()"><b>FACT</b></button>
+      <div id="fact-container"></div>
+      <br>
+      <figure style="display:flex">
+          <img src="/images/cat.jpg" width="100" height="150" style="margin:0px 20px">
+          <img src="/images/beach.jpg" width="100" height="150" style="margin:0px 20px"> 
+          <img src="/images/soccer.jpg" width="100" height="150" style="margin:0px 20px"> 
+          <img src="/images/sushi.jpg" width="100" height="150" style="margin:0px 20px"> 
+          <img src="/images/journal.jpg" width="100" height="150" style="margin:0px 20px"> 
+
+
+
+      </figure>
+      <br>
+        <h2>Life at University</h2>
+        <p style="text-align:justify">When I'm not learning about data structures and algorithms in class, I love getting involved with the community at Queen's University. I am a part of several clubs and activities on campus:
+            <ul>
+                <li>Vice Chair of Events and Logistics on Queen's Women in Computing</li>
+                <li>UX/UI Designer on Queen's Technology and Media Association</li>
+                <li>Intramural Sports: Volleyball, Ultimate Frisbee, Basketball</li>
+                <li>Logistics Executive of the Queen's Computing Orientation Committee</li>
+            </ul>
+                <img src="/images/oweek.jpg" width="350" height="250" class="center">
+        <p style="text-align:justify">I loved orientation as a first year student so I decided to become an orientation leader and then now a part of the orientation commitee. I have been working with a team of 9 to plan Queen's University's 2020 Computing Orientation Week. We are currently working on the trainsition to a virtual orientation.</p>
+
+    <br>
+    <h2>Projects I've Worked On</h2>
+    <ul> 
+        <li><b>SynHub:</b> A mobile application developed using Ionic Framework, which is based on AngularJS. The application acted as an IoT edge device, displaying the data collected from sensors around the company building.</li>
+        <br>
+        <li><b>Spoiler No Spoiling:</b> a google chrome extension that acts like a movie spoiler blocker. Type in a movie and the extension will blur out any paragraphs containing potential spoilers by using data extracted from the movie's IMDB page.</li>
+    </ul>
+    <br>
+    <h2>How I got into Coding</h2>
+    <p style="text-align:justify">My coding background is fairly new. In the twelfth grade when it was time to apply for university programs, I was super unsure of what I wanted to pursue. I really loved science in high school and was never really exposed 
+        to technology or coding. It was my sister who convinced me to go into computer science. I knew the industry was developing and there would be many opportunities for me. So I decided to go to Queen's University, in hopes of pursing a specialization 
+        in biomedical computing. This way, I could learn about the science side implemented into technology. Luckily after my first coding course in first year of university, I ended up loving it. Technology is so powerful and there are endless possibilities
+         to what it can be used for. Now, I am looking forward to learning as much as I can about how technology can help change the lives of others. </p>
+    </div>
+    <div style="text-align:center" id="social">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <h2>Connect with me!</h2>
+        <a href="https://www.facebook.com/emily.zhao.56" class="fa fa-facebook" ></a>
+        <a href="https://github.com/emilyzhaoo" class="fa fa-github"></a>
+        <a href="www.linkedin.com/in/emily-zhaoo" class="fa fa-linkedin"></a>
+
     </div>
   </body>
 </html>
+ 
