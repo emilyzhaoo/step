@@ -10,12 +10,14 @@
   text-align: center;
 }
 
-#header {
-  margin-left: auto;
-  margin-right: auto;
-  width: 700px;
-  font-family:Arial, Helvetica, sans-serif; 
-  text-align: center;
+header {
+  background: #B9D2FC; 
+  padding-top: 10px;
+}
+
+footer {
+    background: #B9D2FC; 
+    padding: 10px; 
 }
 
 .fa {
@@ -82,4 +84,36 @@ color: white;
     height:500px;
     width: 375px; 
     object-fit: scale-down;
+}
+
+
+nav ul {
+    list-style: none; 
+    margin: 0px;
+    padding: 20px;
+}
+
+nav li {
+    display: inline-block;
+    margin-left: 50px;
+    margin: 10px;
+    padding-top: 25px;
+}
+
+nav {
+    float: right;
+    font-family:Verdana, Geneva, Tahoma, sans-serif; 
+    font-size: 18px;
+
+}
+
+nav a {
+    color:#9E9E9E; 
+    text-decoration: none; 
+}
+
+nav a:hover {
+    color: black; 
+}
+
 
