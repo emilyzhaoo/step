@@ -52,6 +52,7 @@ color: white;
   margin-right: auto;
   width: 650px;
   font-family:monospace; 
+
 }
 
 .center {
@@ -59,7 +60,6 @@ color: white;
   margin-left: auto;
   margin-right: auto;
 }
-
 
 
 #buttons {
@@ -76,4 +76,10 @@ color: white;
 #buttons:hover {
   background-color: #4CAF50; /* Green */
   color: white;
-}
+} 
+
+#main-pic {
+    height:500px;
+    width: 375px; 
+    object-fit: scale-down;
+
