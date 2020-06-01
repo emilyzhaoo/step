@@ -28,3 +28,10 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+// Add fetch data
+async function getResponse() {
+  const response = await fetch('/data');
+  const quote = await response.text();
+  document.getElementById('quote-container').innerText = quote;
+}
