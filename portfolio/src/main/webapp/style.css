@@ -16,7 +16,6 @@ header {
   box-sizing: border-box;
   min-height: 15vh;
   position: relative;
-
 }
 
 footer {
@@ -34,7 +33,6 @@ body {
     overflow-x: hidden;
     overflow-y: scroll;
     font-family: Verdana, Geneva, Tahoma, sans-serif; 
-
 }
 
 .fa {
@@ -71,6 +69,7 @@ color: white;
   margin-right: auto;
   width: 650px;
   font-family:monospace; 
+
 }
 
 .center {
@@ -174,5 +173,4 @@ h2 {
     margin: 0;
     padding: 50px;
 }
-
 
