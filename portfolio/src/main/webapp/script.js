@@ -29,7 +29,9 @@ function addRandomFact() {
   factContainer.innerText = fact;
 }
 
-// Add fetch data
+/**  
+Fetch data from the server using the async and await keywords and adds it to the DOM.
+*/
 async function getResponse() {
   const response = await fetch('/data');
   const quote = await response.text();
