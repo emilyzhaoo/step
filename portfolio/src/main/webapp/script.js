@@ -28,3 +28,14 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+/**
+ * Fetches JSON string from the server and adds the comments to the page.
+ */
+function getData() {
+  fetch('/data').then(response => response.json()).then((data) => {
+    const stringJSON = document.getElementById('data');
+    // Adds the fetched data to the page. 
+    stringJSON.innerText = data;
+  });
+}
