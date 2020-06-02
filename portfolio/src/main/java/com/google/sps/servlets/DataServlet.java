@@ -15,6 +15,7 @@
 package com.google.sps.servlets;
 
 import java.io.IOException;
+import java.util.Arrays;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +25,41 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
+/**
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("text/html;");
+    response.setContentType("data/html;");
     response.getWriter().println("<h1>Hello world!</h1>");
   }
+**/ 
+
+   @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String animal = getParameter(request, "animal", "");
+    String verb = getParameter(request, "verb", "");
+    String adj = getParameter(request, "adj", "");
+
+    // Convert all text to lower case.
+    animal = animal.toLowerCase(); 
+    verb = verb.toLowerCase();
+    adj = adj.toLowerCase(); 
+
+    // Respond with the result.
+    response.setContentType("text/html;");
+    response.getWriter().println("Last Sunday, I was " + verb+ " and I saw this " + adj + " " + animal +", who was also " + verb +".");
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
+  }
+
 }
