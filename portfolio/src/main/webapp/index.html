@@ -16,6 +16,7 @@
         </ul>
       </nav>
     </header>      
+
     <div id="container">    
         <h1>Hi! I'm Emily Zhao!</h1>
     </div>
@@ -26,8 +27,22 @@
     <div id="data" style="text-align:center">
         <button onclick="getData()">
     </div>
+    <form action="/data" method="POST" style="text-align:center">
+      <p>Welcome to the sentence generator.</p>
+      <br/>
+      <p>Enter a verb (ends in -ing):</p>
+      <textarea name="verb">singing</textarea>
+      <br/><br/>
+      <p>Enter an adjective:</p>
+      <textarea name="adj">blue</textarea>
+      <br/><br/>
+      <p>Enter an animal:</p>
+      <textarea name="animal">rabbit</textarea>
+      <br/><br/>
+      <input type="submit" />
+    </form>
+    <br>
 </body>
-
 <footer>
     <div style="text-align:center" id="social">
        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
