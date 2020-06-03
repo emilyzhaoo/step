@@ -64,13 +64,7 @@ public class DataServlet extends HttpServlet {
     // Create an instance of DatastoreService class
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(taskEntity);
- 
-    // Create a query instance
-    Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
-    PreparedQuery results = datastore.prepare(query);
-    for (Entity entity : results.asIterable()) {
-    }
-  
+
   }
 
   /**
