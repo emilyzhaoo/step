@@ -26,21 +26,55 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.FetchOptions;
+import java.util.ArrayList; 
+import java.util.List;
+import com.google.gson.Gson;
+import com.google.sps.data.Task;
+
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-/**
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("data/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+
+    // Create a new query
+    Query query = new Query("Task");    
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
+
+ 
+
+    // Set query limit to control maximum number of comments
+    List<Entity> sentence = results.asList(FetchOptions.Builder.withLimit(2));
+//results.asIterable()
+    List<Task> tasks = new ArrayList<>();
+    for (Entity entity : sentence) {
+        long id = entity.getKey().getId();
+        String animal = (String) entity.getProperty("animal");
+        String verb = (String) entity.getProperty("verb");
+        String adj = (String) entity.getProperty("adj");
+
+        Task task = new Task(id, animal, verb, adj);
+        tasks.add(task);
+
+    }
+
+    //results.asList(FetchOptions.Builder.withLimit(1)); 
+
+    response.setContentType("application/json;");
+    String json = new Gson().toJson(tasks);
+    response.getWriter().println(json);
+
+
   }
-**/ 
 
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    
     // Get the input from the form.
     String animal = getParameter(request, "animal", "");
     String verb = getParameter(request, "verb", "");
@@ -53,8 +87,9 @@ public class DataServlet extends HttpServlet {
 
     // Respond with the result.
     response.setContentType("text/html;");
-    response.getWriter().println("Last Sunday, I was " + verb+ " and I saw this " + adj + " " + animal +", who was also " + verb +".");
-    
+    response.getWriter().println("Last Sunday, I was " + verb+ " and I saw this " + adj + " " + animal +", who was also " + verb +".") ;
+    response.getWriter().println("<p><a href=\"/\">Back</a></p>");
+
     // Create an entity and set its properties 
     Entity taskEntity = new Entity("Task");
     taskEntity.setProperty("animal", animal);
@@ -64,6 +99,8 @@ public class DataServlet extends HttpServlet {
     // Create an instance of DatastoreService class
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(taskEntity);
+
+    response.sendRedirect("/index.html");
 
   }
 
@@ -80,3 +117,4 @@ public class DataServlet extends HttpServlet {
   }
 
 }
+

@@ -21,10 +21,54 @@ function addRandomFact() {
   'I have a huge sweet tooth for desserts, especially any homemade baked good.', 'I\m a pretty decent mariokart player.', 'I love being creative. I like drawing, painting, and any form of art.'];
 
   // Pick a random fact.
- const fact = facts[Math.floor(Math.random() * facts.length)];
-
+  const fact = facts[Math.floor(Math.random() * facts.length)];
 
   // Add it to the page.
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+/** Fetches tasks from the server and adds them to the DOM. */
+function loadTasks() {
+  fetch('/data').then(response => response.json()).then((tasks) => {
+    const taskListElement = document.getElementById('sentence-list');
+    tasks.forEach((task) => {
+      console.log(taskListElement.appendChild(createTaskElement(task)));
+    })
+  });
+}
+
+/** Creates an element that represents a task, including its delete button. */
+function createTaskElement(task) {
+  const taskElement = document.createElement('li');
+  taskElement.className = 'task';
+
+  const sentence = document.createElement('span');
+  sentence.innerText = ("Last Sunday, I was " + task.verb + " and I saw this " + task.adj + " " + task.animal + ", who was also " + task.verb +"."); 
+
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.addEventListener('click', () => {
+    deleteTask(task);
+
+    // Remove the task from the DOM.
+    taskElement.remove();
+  });
+
+  taskElement.appendChild(sentence);
+  taskElement.appendChild(deleteButtonElement);
+  return taskElement;
+}
+
+/** Tells the server to delete the task. */
+function deleteTask(task) {
+  const params = new URLSearchParams();
+  params.append('id', task.id);
+  fetch('/delete-data', {method: 'POST', body: params});
+}
+
+function getUserInput() {
+    var quantity = document.getElementById("quantity"); 
+}
+
+

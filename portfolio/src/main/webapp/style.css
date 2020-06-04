@@ -174,3 +174,10 @@ h2 {
     padding: 50px;
 }
 
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
