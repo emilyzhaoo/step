@@ -28,3 +28,24 @@ function addRandomFact() {
   const factContainer = document.getElementById('fact-container');
   factContainer.innerText = fact;
 }
+
+/**
+ * Fetches JSON string from the server and adds the comments to the page.
+ */
+function getData() {
+  fetch('/data').then(response => response.json()).then((data) => {
+    const stringJSON = document.getElementById('data');
+    // Adds the fetched data to the page. 
+    stringJSON.innerText = data;
+  });
+} 
+
+/**  
+Fetch data from the server using the async and await keywords and adds it to the DOM.
+*/
+async function getResponse() {
+  const response = await fetch('/data');
+  const quote = await response.text();
+  document.getElementById('quote-container').innerText = quote;
+}
+

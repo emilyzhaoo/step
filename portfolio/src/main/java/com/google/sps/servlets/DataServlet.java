@@ -26,6 +26,9 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import java.util.ArrayList; 
+import com.google.gson.Gson;
+
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
@@ -34,8 +37,24 @@ public class DataServlet extends HttpServlet {
 /**
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("data/html;");
-    response.getWriter().println("<h1>Hello world!</h1>");
+
+    
+    ArrayList<String> messages = new ArrayList<String>(); 
+    messages.add("hello");
+    messages.add("bonjour");
+    messages.add("hola"); 
+
+    // Converts Arraylist into JSON string using Gson
+    String json = new Gson().toJson(messages);
+
+    // Send the JSON as the response
+    response.setContentType("application/json;");
+    response.getWriter().println(json);
+
+
+    response.setContentType("text/html;");
+    response.getWriter().println("<h1>Hello Emily!</h1>");
+
   }
 **/ 
 
@@ -54,7 +73,7 @@ public class DataServlet extends HttpServlet {
     // Respond with the result.
     response.setContentType("text/html;");
     response.getWriter().println("Last Sunday, I was " + verb+ " and I saw this " + adj + " " + animal +", who was also " + verb +".");
-    
+
     // Create an entity and set its properties 
     Entity taskEntity = new Entity("Task");
     taskEntity.setProperty("animal", animal);
@@ -66,6 +85,7 @@ public class DataServlet extends HttpServlet {
     datastore.put(taskEntity);
 
   }
+
 
   /**
    * @return the request parameter, or the default value if the parameter
