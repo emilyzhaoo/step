@@ -67,8 +67,13 @@ function deleteTask(task) {
   fetch('/delete-data', {method: 'POST', body: params});
 }
 
-function getUserInput() {
+/** Gets user input from display quantity drop down menu */
+function getSelection() {
     var quantity = document.getElementById("quantity"); 
 }
 
-
+/** Refreshes displayed comments when changes are made. 
+function refresh() {
+    location.reload(); 
+}
+*/

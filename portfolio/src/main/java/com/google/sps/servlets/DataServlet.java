@@ -33,9 +33,12 @@ import com.google.gson.Gson;
 import com.google.sps.data.Task;
 
 
+
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+
+  private int quantity = 5; 
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -46,11 +49,11 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
- 
+    // Get query string
+    //int limit = Integer.parseInt(request.getQueryString()); 
 
     // Set query limit to control maximum number of comments
-    List<Entity> sentence = results.asList(FetchOptions.Builder.withLimit(2));
-//results.asIterable()
+    List<Entity> sentence = results.asList(FetchOptions.Builder.withLimit(quantity));
     List<Task> tasks = new ArrayList<>();
     for (Entity entity : sentence) {
         long id = entity.getKey().getId();
@@ -63,18 +66,18 @@ public class DataServlet extends HttpServlet {
 
     }
 
-    //results.asList(FetchOptions.Builder.withLimit(1)); 
-
     response.setContentType("application/json;");
     String json = new Gson().toJson(tasks);
     response.getWriter().println(json);
-
-
   }
 
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
+    quantity = Integer.parseInt(request.getParameter("quantity"));
+    System.out.println(quantity);
+
+
     // Get the input from the form.
     String animal = getParameter(request, "animal", "");
     String verb = getParameter(request, "verb", "");

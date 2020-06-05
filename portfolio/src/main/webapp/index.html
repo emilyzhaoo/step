@@ -24,38 +24,43 @@
     </figure> 
     <h2>This is my portfolio. Get ready to learn more about me!</h2>
     <div class="row">
-        <div class="column" >
-            <form action="/data" method="POST" style="text-align:center">
-            <p>Welcome to the sentence generator.</p>
-            <br/>
-            <p>Enter a verb (ends in -ing):</p>
-            <textarea name="verb">singing</textarea>
-            <br/><br/>
-            <p>Enter an adjective:</p>
-            <textarea name="adj">blue</textarea>
-            <br/><br/>
-            <p>Enter an animal:</p>
-            <textarea name="animal">rabbit</textarea>
-            <br/><br/>
-            <input type="submit" name="count"/>
-            </form>
+        <div class="column">
+            <div class="card">
+                <form action="/data" method="POST" style="text-align:center">
+                <p>Welcome to the sentence generator.</p>
+                <br/>
+                <p>Enter a verb (ends in -ing):</p>
+                <textarea name="verb">singing</textarea>
+                <br/><br/>
+                <p>Enter an adjective:</p>
+                <textarea name="adj">blue</textarea>
+                <br/><br/>
+                <p>Enter an animal:</p>
+                <textarea name="animal">rabbit</textarea>
+                <br/><br/>
+                <input type="submit" name="count"/>
+                <br/><br/>
+                <label for="quantity">Choose a Quantity to Display:</label>
+                <select name="quantity" id="quantity" >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5"selected="selected">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>     
+                </form>
+            </div> 
         </div>
         <div class="column">
-            <p>Sentences</p>
-            <label for="quantity">Choose a Quantity to Display:</label>
-            <select name="quantity" id="quantity">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-            </select>            
-            <ul id="sentence-list"></ul>
+            <div class="card">
+                <p>Sentences Generated</p>
+                <ul id="sentence-list"></ul>
+            </div>
         </div>
     </div>
     <br>
