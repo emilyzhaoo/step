@@ -36,6 +36,7 @@ function loadTasks() {
       console.log(taskListElement.appendChild(createTaskElement(task)));
     })
   });
+
 }
 
 /** Creates an element that represents a task, including its delete button. */
@@ -71,9 +72,3 @@ function deleteTask(task) {
 function getSelection() {
     var quantity = document.getElementById("quantity"); 
 }
-
-/** Refreshes displayed comments when changes are made. 
-function refresh() {
-    location.reload(); 
-}
-*/

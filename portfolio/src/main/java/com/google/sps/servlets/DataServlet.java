@@ -53,7 +53,7 @@ public class DataServlet extends HttpServlet {
     //int limit = Integer.parseInt(request.getQueryString()); 
 
     // Set query limit to control maximum number of comments
-    List<Entity> sentence = results.asList(FetchOptions.Builder.withLimit(quantity));
+    List<Entity> sentence = results.asList(FetchOptions.Builder.withLimit(this.quantity));
     List<Task> tasks = new ArrayList<>();
     for (Entity entity : sentence) {
         long id = entity.getKey().getId();
@@ -74,7 +74,7 @@ public class DataServlet extends HttpServlet {
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
-    quantity = Integer.parseInt(request.getParameter("quantity"));
+    this.quantity = Integer.parseInt(request.getParameter("quantity"));
     System.out.println(quantity);
 
 
