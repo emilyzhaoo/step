@@ -72,3 +72,4 @@ function deleteTask(task) {
 function getSelection() {
     var quantity = document.getElementById("quantity"); 
 }
+

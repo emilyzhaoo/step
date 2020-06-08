@@ -93,6 +93,7 @@ public class DataServlet extends HttpServlet {
     response.getWriter().println("Last Sunday, I was " + verb+ " and I saw this " + adj + " " + animal +", who was also " + verb +".") ;
     response.getWriter().println("<p><a href=\"/\">Back</a></p>");
 
+
     // Create an entity and set its properties 
     Entity taskEntity = new Entity("Task");
     taskEntity.setProperty("animal", animal);
@@ -106,6 +107,7 @@ public class DataServlet extends HttpServlet {
     response.sendRedirect("/index.html");
 
   }
+
 
   /**
    * @return the request parameter, or the default value if the parameter
