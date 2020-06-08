@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -33,7 +33,6 @@ import com.google.gson.Gson;
 import com.google.sps.data.Task;
 
 
-
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -49,9 +48,6 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Get query string
-    //int limit = Integer.parseInt(request.getQueryString()); 
-
     // Set query limit to control maximum number of comments
     List<Entity> sentence = results.asList(FetchOptions.Builder.withLimit(quantity));
     List<Task> tasks = new ArrayList<>();
@@ -60,10 +56,8 @@ public class DataServlet extends HttpServlet {
         String animal = (String) entity.getProperty("animal");
         String verb = (String) entity.getProperty("verb");
         String adj = (String) entity.getProperty("adj");
-
         Task task = new Task(id, animal, verb, adj);
         tasks.add(task);
-
     }
 
     response.setContentType("application/json;");
@@ -73,10 +67,8 @@ public class DataServlet extends HttpServlet {
 
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-    quantity = Integer.parseInt(request.getParameter("quantity"));
-    System.out.println(quantity);
 
+    this.quantity = Integer.parseInt(request.getParameter("quantity"));
 
     // Get the input from the form.
     String animal = getParameter(request, "animal", "");
@@ -104,7 +96,6 @@ public class DataServlet extends HttpServlet {
     datastore.put(taskEntity);
 
     response.sendRedirect("/index.html");
-
   }
 
   /**
@@ -118,6 +109,4 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
-
 }
-

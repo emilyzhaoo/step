@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,10 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random fact about me to the page.
- */
-
+/** Adds a random fact about me to the page.*/
 function addRandomFact() {
   const facts = ['I love tropical destinations and spending time by the ocean!', 'I have torn the ACLs in both my knees playing soccer (at separate times). I got surgery to repair both of them.', 'I am a huge cat person (but I love most pets too).', 'I am a huge foodie. My favourite foods are sushi, thai basil beef and tacos.',
   'I have a huge sweet tooth for desserts, especially any homemade baked good.', 'I\m a pretty decent mariokart player.', 'I love being creative. I like drawing, painting, and any form of art.'];
@@ -30,6 +27,9 @@ function addRandomFact() {
 
 /** Fetches tasks from the server and adds them to the DOM. */
 function loadTasks() {
+  // get user selection for quantity
+  getSelect(); 
+
   fetch('/data').then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('sentence-list');
     tasks.forEach((task) => {
@@ -44,15 +44,16 @@ function createTaskElement(task) {
   taskElement.className = 'task';
 
   const sentence = document.createElement('span');
-  sentence.innerText = ("Last Sunday, I was " + task.verb + " and I saw this " + task.adj + " " + task.animal + ", who was also " + task.verb +"."); 
+  sentence.innerText = ("Last Sunday, I was " + task.verb + " and I saw this " 
+  + task.adj + " " + task.animal + ", who was also " + task.verb +"."); 
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
-    deleteTask(task);
+  deleteTask(task);
 
-    // Remove the task from the DOM.
-    taskElement.remove();
+  // Remove the task from the DOM.
+  taskElement.remove();
   });
 
   taskElement.appendChild(sentence);
@@ -68,12 +69,6 @@ function deleteTask(task) {
 }
 
 /** Gets user input from display quantity drop down menu */
-function getSelection() {
-    var quantity = document.getElementById("quantity"); 
+function getSelect() {
+   var quantity = document.getElementById("quantity"); 
 }
-
-/** Refreshes displayed comments when changes are made. 
-function refresh() {
-    location.reload(); 
-}
-*/
