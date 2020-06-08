@@ -32,24 +32,21 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.sps.data.Task;
 
-
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
-
-  private int quantity =5;
+/** Servlet responsible for updating the maximum amount of comments displayed. */ 
+@WebServlet("/update-data")
+public class UpdateServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+   
+    int quantity = Integer.parseInt(request.getParameter("quantity"));
+    System.out.println(quantity);
 
     // Create a new query
     Query query = new Query("Task");    
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
-   // int quantity = Integer.parseInt(request.getQueryString()); 
-   
 
     // Set query limit to control maximum number of comments
     List<Entity> sentence = results.asList(FetchOptions.Builder.withLimit(quantity));
@@ -65,51 +62,5 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json;");
     String json = new Gson().toJson(tasks);
     response.getWriter().println(json);
-  }
-
-   @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    this.quantity = Integer.parseInt(request.getParameter("quantity"));
-
-    // Get the input from the form.
-    String animal = getParameter(request, "animal", "");
-    String verb = getParameter(request, "verb", "");
-    String adj = getParameter(request, "adj", "");
-
-    // Convert all text to lower case.
-    animal = animal.toLowerCase(); 
-    verb = verb.toLowerCase();
-    adj = adj.toLowerCase(); 
-
-    // Respond with the result.
-    response.setContentType("text/html;");
-    response.getWriter().println("Last Sunday, I was " + verb+ " and I saw this " + adj + " " + animal +", who was also " + verb +".") ;
-    response.getWriter().println("<p><a href=\"/\">Back</a></p>");
-
-    // Create an entity and set its properties 
-    Entity taskEntity = new Entity("Task");
-    taskEntity.setProperty("animal", animal);
-    taskEntity.setProperty("verb", verb);
-    taskEntity.setProperty("adj", adj);
-
-    // Create an instance of DatastoreService class
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(taskEntity);
-
-    response.sendRedirect("/index.html");
-  }
-
-
-  /**
-   * @return the request parameter, or the default value if the parameter
-   *         was not specified by the client
-   */
-  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
-    String value = request.getParameter(name);
-    if (value == null) {
-      return defaultValue;
-    }
-    return value;
   }
 }

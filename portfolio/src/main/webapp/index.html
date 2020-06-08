@@ -16,6 +16,7 @@
         </ul>
       </nav>
     </header>      
+
     <div id="container">    
         <h1>Hi! I'm Emily Zhao!</h1>
     </div>
@@ -40,27 +41,30 @@
                 <br/><br/>
                 <input type="submit" name="count"/>
                 <br/><br/>
-                <label for="quantity">Choose a Quantity to Display:</label>
-                <select name="quantity" id="quantity" >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5"selected="selected">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                </select>  
-                <button type="Refresh" onclick="getSelect()">Refresh</button> 
                 </form>
             </div> 
         </div>
         <div class="column">
             <div class="card">
                 <p><b>Sentences Generated</b></p>
-                <br/><br/>
+                <br/>
+                <section style="align-text:center">
+                    <label for="quantity">Choose a Quantity to Display:</label>
+                    <select name="quantity" id="quantity"  >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5" selected="selected">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>  
+                    <button type="Refresh" onclick="loadTasks()">Refresh</button> 
+                </section>
+                <br/>
                 <section>
                     <ul id="sentence-list"></ul>
                 </section>

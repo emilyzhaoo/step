@@ -27,6 +27,7 @@ function addRandomFact() {
 
 /** Fetches tasks from the server and adds them to the DOM. */
 function loadTasks() {
+
   // get user selection for quantity
   getSelect(); 
 
@@ -70,5 +71,18 @@ function deleteTask(task) {
 
 /** Gets user input from display quantity drop down menu */
 function getSelect() {
+
    var quantity = document.getElementById("quantity"); 
+/**
+// method does not exist - the post
+   const params = new URLSearchParams();
+   params.append('quantity', userInput);
+   fetch('/update-data', {method: 'POST', body: params});
+
+ //keeps returning null 
+   const params = new URLSearchParams(window.location.search);
+   const quantity = params.get('quantity'); 
+   console.log(quantity);  
+   */
 }
+
