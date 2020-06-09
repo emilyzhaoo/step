@@ -37,7 +37,8 @@ import com.google.sps.data.Task;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-  private int quantity =5;
+  // Array of all possible selected options for maximum number of comments displayed
+  String[] selectOptions = {"1","2","3","4","5","6","7","8","9","10"};
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -48,8 +49,15 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-   // int quantity = Integer.parseInt(request.getQueryString()); 
-   
+    // Check if quantity is a valid selected option
+    int quantity; 
+    if (Arrays.asList(selectOptions).contains(request.getParameter("quantity"))) {
+        quantity = Integer.parseInt(request.getParameter("quantity"));    
+    }
+    else {
+        // set default quantity
+        quantity = 5; 
+    }
 
     // Set query limit to control maximum number of comments
     List<Entity> sentence = results.asList(FetchOptions.Builder.withLimit(quantity));
@@ -70,13 +78,11 @@ public class DataServlet extends HttpServlet {
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    this.quantity = Integer.parseInt(request.getParameter("quantity"));
-
     // Get the input from the form.
     String animal = getParameter(request, "animal", "");
     String verb = getParameter(request, "verb", "");
     String adj = getParameter(request, "adj", "");
-
+    
     // Convert all text to lower case.
     animal = animal.toLowerCase(); 
     verb = verb.toLowerCase();

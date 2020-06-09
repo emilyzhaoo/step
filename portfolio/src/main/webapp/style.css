@@ -219,3 +219,7 @@ section ul {
 section {
     text-align: justify;
 }
+
+.chart {
+    padding: 25px 0px 25px 0px;
+}

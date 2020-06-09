@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+
 /** Adds a random fact about me to the page.*/
 function addRandomFact() {
   const facts = ['I love tropical destinations and spending time by the ocean!', 'I have torn the ACLs in both my knees playing soccer (at separate times). I got surgery to repair both of them.', 'I am a huge cat person (but I love most pets too).', 'I am a huge foodie. My favourite foods are sushi, thai basil beef and tacos.',
@@ -28,11 +30,16 @@ function addRandomFact() {
 /** Fetches tasks from the server and adds them to the DOM. */
 function loadTasks() {
 
-  // get user selection for quantity
-  getSelect(); 
+  // get user selection for quantity number
+  var quantity = getSelect(); 
 
-  fetch('/data').then(response => response.json()).then((tasks) => {
+  fetch('/data?quantity=' + quantity).then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('sentence-list');
+
+    // clear task list element from DOM
+    taskListElement.innerHTML = ''; 
+
+    // Add tasks to DOM 
     tasks.forEach((task) => {
       console.log(taskListElement.appendChild(createTaskElement(task)));
     })
@@ -41,6 +48,7 @@ function loadTasks() {
 
 /** Creates an element that represents a task, including its delete button. */
 function createTaskElement(task) {
+
   const taskElement = document.createElement('li');
   taskElement.className = 'task';
 
@@ -60,6 +68,8 @@ function createTaskElement(task) {
   taskElement.appendChild(sentence);
   taskElement.appendChild(deleteButtonElement);
   return taskElement;
+
+
 }
 
 /** Tells the server to delete the task. */
@@ -71,18 +81,25 @@ function deleteTask(task) {
 
 /** Gets user input from display quantity drop down menu */
 function getSelect() {
-
-   var quantity = document.getElementById("quantity"); 
-/**
-// method does not exist - the post
-   const params = new URLSearchParams();
-   params.append('quantity', userInput);
-   fetch('/update-data', {method: 'POST', body: params});
-
- //keeps returning null 
-   const params = new URLSearchParams(window.location.search);
-   const quantity = params.get('quantity'); 
-   console.log(quantity);  
-   */
+   var element = document.getElementById("quantity");
+   return element.options[element.selectedIndex].value;
 }
+
+/** Creates a geochart and adds it to the page. */
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+          ['Country', 'Popularity'],
+          ['Germany', 200],
+          ['United States', 300],
+          ['Brazil', 400],
+          ['Canada', 500],
+          ['France', 600],
+          ['RU', 700]
+    ]);
+        var options = {};
+        var chart = new google.visualization.GeoChart(document.getElementById('chart'));
+        chart.draw(data, options);
+}
+
+
 
