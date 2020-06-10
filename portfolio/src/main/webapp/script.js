@@ -99,5 +99,4 @@ function drawChart() {
         var chart = new google.visualization.GeoChart(document.getElementById('chart'));
         chart.draw(data, options);
     });
-
 }
