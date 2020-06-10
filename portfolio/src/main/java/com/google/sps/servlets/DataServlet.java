@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 import com.google.sps.data.Task;
 
 
+
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
@@ -104,6 +105,7 @@ public class DataServlet extends HttpServlet {
 
     response.sendRedirect("/index.html");
   }
+
 
   /**
    * @return the request parameter, or the default value if the parameter
