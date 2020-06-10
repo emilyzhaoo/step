@@ -50,13 +50,13 @@ body {
 }
 
 .fa-facebook {
-       background: #3B5998;
-  color: white;
+    background: #3B5998;
+    color: white;
 }
 
 .fa-github {
-background: black;
-color: white; 
+    background: black;
+    color: white; 
 }
 
 .fa-linkedin {
@@ -174,3 +174,52 @@ h2 {
     padding: 50px;
 }
 
+.row {
+    box-sizing: border-box; 
+    display: flex;
+    transition: 0.3s; 
+    border-radius: 5px; 
+    margin: 0 -5px; 
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
+    padding-bottom: 20px;
+    
+}
+
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2); 
+}
+
+
+.column {
+    float: left;
+    width: 50%;
+    padding: 0px 20px; 
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding: 16px;
+    text-align: center;
+    background-color: #E8F0FE; 
+}
+
+textarea {
+    color: #3B5998;  
+    resize: none;
+
+}
+
+section ul {
+    list-style: none; 
+}
+
+section {
+    text-align: justify;
+}
+
+.chart {
+    padding: 50px 0px 50px 0px;
+}

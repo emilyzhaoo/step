@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,45 +26,64 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.FetchOptions;
 import java.util.ArrayList; 
+import java.util.List;
 import com.google.gson.Gson;
+import com.google.sps.data.Task;
+
 
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
 
-/**
+  // Array of all possible selected options for maximum number of comments displayed
+  String[] selectOptions = {"1","2","3","4","5","6","7","8","9","10"};
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-    
-    ArrayList<String> messages = new ArrayList<String>(); 
-    messages.add("hello");
-    messages.add("bonjour");
-    messages.add("hola"); 
+    // Create a new query
+    Query query = new Query("Task");    
 
-    // Converts Arraylist into JSON string using Gson
-    String json = new Gson().toJson(messages);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    PreparedQuery results = datastore.prepare(query);
 
-    // Send the JSON as the response
+    // Check if quantity is a valid selected option
+    int quantity; 
+    if (Arrays.asList(selectOptions).contains(request.getParameter("quantity"))) {
+        quantity = Integer.parseInt(request.getParameter("quantity"));    
+    }
+    else {
+        // set default quantity
+        quantity = 5; 
+    }
+
+    // Set query limit to control maximum number of comments
+    List<Entity> sentence = results.asList(FetchOptions.Builder.withLimit(quantity));
+    List<Task> tasks = new ArrayList<>();
+    for (Entity entity : sentence) {
+        long id = entity.getKey().getId();
+        String animal = (String) entity.getProperty("animal");
+        String verb = (String) entity.getProperty("verb");
+        String adj = (String) entity.getProperty("adj");
+        Task task = new Task(id, animal, verb, adj);
+        tasks.add(task);
+    }
     response.setContentType("application/json;");
+    String json = new Gson().toJson(tasks);
     response.getWriter().println(json);
-
-
-    response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Emily!</h1>");
-
   }
-**/ 
 
    @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
     // Get the input from the form.
     String animal = getParameter(request, "animal", "");
     String verb = getParameter(request, "verb", "");
     String adj = getParameter(request, "adj", "");
-
+    
     // Convert all text to lower case.
     animal = animal.toLowerCase(); 
     verb = verb.toLowerCase();
@@ -72,7 +91,7 @@ public class DataServlet extends HttpServlet {
 
     // Respond with the result.
     response.setContentType("text/html;");
-    response.getWriter().println("Last Sunday, I was " + verb+ " and I saw this " + adj + " " + animal +", who was also " + verb +".");
+    response.getWriter().println("Last Sunday, I was " + verb+ " and I saw this " + adj + " " + animal +", who was also " + verb +".") ;
 
     // Create an entity and set its properties 
     Entity taskEntity = new Entity("Task");
@@ -84,6 +103,7 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(taskEntity);
 
+    response.sendRedirect("/index.html");
   }
 
 
@@ -98,5 +118,4 @@ public class DataServlet extends HttpServlet {
     }
     return value;
   }
-
 }

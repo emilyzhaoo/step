@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-<body>  
+<body onload="loadTasks()">  
     <header>
       <nav>
         <ul>
@@ -24,24 +24,65 @@
         <img width="400" src="/images/background.jpg">
     </figure> 
     <h2>This is my portfolio. Get ready to learn more about me!</h2>
-    <div id="data" style="text-align:center">
-        <button onclick="getData()">
+    <div id="game" class="row">
+        <div class="column">
+            <div class="card">
+                <form action="/data" method="POST" style="text-align:center">
+                <p><b>Welcome to the sentence generator.</b></p>
+                <br/>
+                <p>Enter a verb (ends in -ing):</p>
+                <textarea name="verb" placeholder="Verb" cols="20" rows"2"></textarea>                
+                <br/><br/>
+                <p>Enter an adjective:</p>
+                <textarea name="adj" placeholder="Adjective" cols="20" rows"2"></textarea>
+                <br/><br/>
+                <p>Enter an animal:</p>
+                <textarea name="animal" placeholder="Animal" cols="20" rows"2"></textarea>
+                <br/><br/>
+                <input type="submit" name="count"/>
+                <br/><br/>
+                </form>
+            </div> 
+        </div>
+        <div class="column">
+            <div class="card">
+                <p><b>Sentences Generated</b></p>
+                <br/>
+                <section style="align-text:center">
+                    <label for="quantity">Choose a Quantity to Display:</label>
+                    <select name="quantity" id="quantity" >
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5" selected="selected">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>  
+                    <button type="Refresh" onclick="loadTasks()">Refresh</button> 
+                </section>
+                <br/>
+                <section>
+                    <ul id="sentence-list"></ul>
+                </section>
+            </div>
+        </div>
     </div>
-    <form action="/data" method="POST" style="text-align:center">
-      <p>Welcome to the sentence generator.</p>
-      <br/>
-      <p>Enter a verb (ends in -ing):</p>
-      <textarea name="verb">singing</textarea>
-      <br/><br/>
-      <p>Enter an adjective:</p>
-      <textarea name="adj">blue</textarea>
-      <br/><br/>
-      <p>Enter an animal:</p>
-      <textarea name="animal">rabbit</textarea>
-      <br/><br/>
-      <input type="submit" />
-    </form>
     <br>
+     <div>
+        <h2 class="center">Active COVID-19 Cases in the World</h2>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+        <script type="text/javascript">
+        google.charts.load('current', {
+        'packages':['geochart'],
+        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
+        google.charts.setOnLoadCallback(drawChart); 
+        </script>        
+        <div id="chart" style="width: 900px; height: 500px;" class="center"></div>
+    </div>
 </body>
 <footer>
     <div style="text-align:center" id="social">
