@@ -16,78 +16,72 @@
 
 /** Adds a random fact about me to the page.*/
 function addRandomFact() {
-  const facts = ['I love tropical destinations and spending time by the ocean!', 'I have torn the ACLs in both my knees playing soccer (at separate times). I got surgery to repair both of them.', 'I am a huge cat person (but I love most pets too).', 'I am a huge foodie. My favourite foods are sushi, thai basil beef and tacos.',
-  'I have a huge sweet tooth for desserts, especially any homemade baked good.', 'I\m a pretty decent mariokart player.', 'I love being creative. I like drawing, painting, and any form of art.'];
+    const facts = ['I love tropical destinations and spending time by the ocean!', 'I have torn the ACLs in both my knees playing soccer (at separate times). I got surgery to repair both of them.', 'I am a huge cat person (but I love most pets too).', 'I am a huge foodie. My favourite foods are sushi, thai basil beef and tacos.',
+    'I have a huge sweet tooth for desserts, especially any homemade baked good.', 'I\m a pretty decent mariokart player.', 'I love being creative. I like drawing, painting, and any form of art.'];
 
-  // Pick a random fact.
-  const fact = facts[Math.floor(Math.random() * facts.length)];
+    // Pick a random fact.
+    const fact = facts[Math.floor(Math.random() * facts.length)];
 
-  // Add it to the page.
-  const factContainer = document.getElementById('fact-container');
-  factContainer.innerText = fact;
+    // Add it to the page.
+    const factContainer = document.getElementById('fact-container');
+    factContainer.innerText = fact;
 }
 
 /** Fetches tasks from the server and adds them to the DOM. */
 function loadTasks() {
+    var quantity = localStorage.getItem("quantity"); 
 
-    // get user selection for quantity number
-    var quantity = getSelect(); 
+    // Set selected attribute in drop down menu
+    document.getElementById(quantity).setAttribute("selected","selected"); 
 
     fetch('/data?quantity=' + quantity).then(response => response.json()).then((tasks) => {
-    const taskListElement = document.getElementById('sentence-list');
+        const taskListElement = document.getElementById('sentence-list');
 
-    // clear task list element from DOM
-    taskListElement.innerHTML = ''; 
+        // clear task list element from DOM
+        taskListElement.innerHTML = ''; 
 
-    // Add tasks to DOM 
-    tasks.forEach((task) => {
-      console.log(taskListElement.appendChild(createTaskElement(task)));
-    })
-  });
+        // Add tasks to DOM 
+        tasks.forEach((task) => {
+        console.log(taskListElement.appendChild(createTaskElement(task)));
+        })
+    });
 }
 
 /** Creates an element that represents a task, including its delete button. */
 function createTaskElement(task) {
 
-  const taskElement = document.createElement('li');
-  taskElement.className = 'task';
+    const taskElement = document.createElement('li');
+    taskElement.className = 'task';
 
-  const sentence = document.createElement('span');
-  sentence.innerText = ("Last Sunday, I was " + task.verb + " and I saw this " 
-  + task.adj + " " + task.animal + ", who was also " + task.verb +"."); 
+    const sentence = document.createElement('span');
+    sentence.innerText = ("Last Sunday, I was " + task.verb + " and I saw this " 
+    + task.adj + " " + task.animal + ", who was also " + task.verb +"."); 
+  
+    const deleteButtonElement = document.createElement('button');
+    deleteButtonElement.innerText = 'Delete';
+    deleteButtonElement.addEventListener('click', () => {
+    deleteTask(task);
 
-  const deleteButtonElement = document.createElement('button');
-  deleteButtonElement.setAttribute("id", "delete-button"); 
-  deleteButtonElement.innerText = 'Delete';
-  deleteButtonElement.addEventListener('click', () => {
-  deleteTask(task);
+    // Remove the task from the DOM.
+    taskElement.remove();
+    });
 
-  // Remove the task from the DOM.
-  taskElement.remove();
-  });
-
-  taskElement.appendChild(sentence);
-  taskElement.appendChild(deleteButtonElement);
-  return taskElement;
+    taskElement.appendChild(sentence);
+    taskElement.appendChild(deleteButtonElement);
+    return taskElement;
 }
 
 /** Tells the server to delete the task. */
 function deleteTask(task) {
-  const params = new URLSearchParams();
-  params.append('id', task.id);
-  fetch('/delete-data', {method: 'POST', body: params});
+    const params = new URLSearchParams();
+    params.append('id', task.id);
+    fetch('/delete-data', {method: 'POST', body: params});
 }
 
-/** Gets user input from display quantity drop down menu */
-function getSelect() {
-    
-   var element = document.getElementById("quantity");
-   var limit = element.options[element.selectedIndex].value;
-
-   if (localStorage.quantity != limit) {
-        localStorage.setItem("quantity", limit);
-   }
-   return localStorage.getItem("quantity"); 
+/** Updates user input into local storage item */
+function updateInput() {
+    var element = document.getElementById("quantity");
+    localStorage.setItem("quantity", element.options[element.selectedIndex].value);
 }
 
 /** Fetches COVID-19 stats from servlet to create a geochart and add it to the page. */

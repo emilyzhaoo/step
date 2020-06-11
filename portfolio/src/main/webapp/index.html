@@ -68,17 +68,17 @@
                 <br/>
                 <section>
                     <label for="quantity">Choose a Quantity to Display:</label>
-                    <select name="quantity" id="quantity" >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
+                    <select name="quantity" id="quantity" onchange="updateInput()">
+                        <option id="1" value="1">1</option>
+                        <option id="2" value="2">2</option>
+                        <option id="3" value="3">3</option>
+                        <option id="4" value="4">4</option>
+                        <option id="5" value="5">5</option>
+                        <option id="6" value="6">6</option>
+                        <option id="7" value="7">7</option>
+                        <option id="8" value="8">8</option>
+                        <option id="9" value="9">9</option>
+                        <option id="10" value="10">10</option>
                     </select>  
                     <button type="Refresh" onclick="loadTasks()">Refresh</button> 
                 </section>
