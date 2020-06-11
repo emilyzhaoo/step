@@ -33,7 +33,6 @@ function loadTasks() {
     // get user selection for quantity number
     var quantity = getSelect(); 
 
-
     fetch('/data?quantity=' + quantity).then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('sentence-list');
 
@@ -114,7 +113,7 @@ function requestTranslation() {
     const text = document.getElementById('text').textContent;
     const languageCode = document.getElementById('language').value;
 
-    const loadingContainer = document.getElementById('result');
+    const loadingContainer = document.getElementById('message');
     loadingContainer.innerText = 'Translating...';
 
     const params = new URLSearchParams();
