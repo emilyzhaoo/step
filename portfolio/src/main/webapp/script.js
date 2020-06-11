@@ -33,6 +33,7 @@ function loadTasks() {
     // get user selection for quantity number
     var quantity = getSelect(); 
 
+
     fetch('/data?quantity=' + quantity).then(response => response.json()).then((tasks) => {
     const taskListElement = document.getElementById('sentence-list');
 
@@ -57,6 +58,7 @@ function createTaskElement(task) {
   + task.adj + " " + task.animal + ", who was also " + task.verb +"."); 
 
   const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.setAttribute("id", "delete-button"); 
   deleteButtonElement.innerText = 'Delete';
   deleteButtonElement.addEventListener('click', () => {
   deleteTask(task);
@@ -79,8 +81,14 @@ function deleteTask(task) {
 
 /** Gets user input from display quantity drop down menu */
 function getSelect() {
+    
    var element = document.getElementById("quantity");
-   return element.options[element.selectedIndex].value;
+   var limit = element.options[element.selectedIndex].value;
+
+   if (localStorage.quantity != limit) {
+        localStorage.setItem("quantity", limit);
+   }
+   return localStorage.getItem("quantity"); 
 }
 
 /** Fetches COVID-19 stats from servlet to create a geochart and add it to the page. */
@@ -99,4 +107,24 @@ function drawChart() {
         var chart = new google.visualization.GeoChart(document.getElementById('chart'));
         chart.draw(data, options);
     });
+}
+
+/** Requests the translation */
+function requestTranslation() {
+    const text = document.getElementById('text').textContent;
+    const languageCode = document.getElementById('language').value;
+
+    const loadingContainer = document.getElementById('result');
+    loadingContainer.innerText = 'Translating...';
+
+    const params = new URLSearchParams();
+    params.append('text', text);
+    params.append('languageCode', languageCode);
+
+    fetch('/translate', { method: 'POST', body: params}).then(response => 
+        response.text()).then((translatedMessage) => {
+          // Sets header to the translated message
+          document.getElementById('text').innerText = translatedMessage;
+          loadingContainer.innerText = '';
+        });
 }

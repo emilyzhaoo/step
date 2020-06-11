@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title style="text-align:center">My Portfolio</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="script.js"></script>      
   </head>
 <body onload="loadTasks()">  
     <header>
@@ -16,15 +16,33 @@
         </ul>
       </nav>
     </header>      
-
     <div id="container">    
         <h1>Hi! I'm Emily Zhao!</h1>
     </div>
     <figure>
         <img width="400" src="/images/background.jpg">
     </figure> 
-    <h2>This is my portfolio. Get ready to learn more about me!</h2>
-    <div id="game" class="row">
+    <h2 id="text">This is my portfolio. Get ready to learn more about me!</h2>
+    <div style="text-align:center">
+        <select id="language">
+            <option value="es">English</option>
+            <option value="zh">Chinese</option>
+            <option value="es">Spanish</option>
+            <option value="fr">French</option>
+            <option value="hi">Hindi</option>
+            <option value="ar">Arabic</option>
+            <option value="de">German</option>
+            <option value="nl">Dutch</option>
+            <option value="ja">Japanese</option>
+        </select>
+        <br/><br/>
+        <button onclick="requestTranslation();">Translate</button>
+        <div id="result"></div>
+    </div>
+    <br/>
+    <hr size="8" color="#B9D2FC"> 
+    <br/>
+    <div class="row">
         <div class="column">
             <div class="card">
                 <form action="/data" method="POST" style="text-align:center">
@@ -48,14 +66,14 @@
             <div class="card">
                 <p><b>Sentences Generated</b></p>
                 <br/>
-                <section style="align-text:center">
+                <section>
                     <label for="quantity">Choose a Quantity to Display:</label>
                     <select name="quantity" id="quantity" >
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-                        <option value="5" selected="selected">5</option>
+                        <option value="5">5</option>
                         <option value="6">6</option>
                         <option value="7">7</option>
                         <option value="8">8</option>
@@ -66,23 +84,30 @@
                 </section>
                 <br/>
                 <section>
-                    <ul id="sentence-list"></ul>
+                    <ul id="sentence-list" style="padding: 10px 10px 10px 10px"></ul>
                 </section>
             </div>
         </div>
     </div>
-    <br>
-     <div>
-        <h2 class="center">Active COVID-19 Cases in the World</h2>
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
-        <script type="text/javascript">
-        google.charts.load('current', {
-        'packages':['geochart'],
-        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
-        google.charts.setOnLoadCallback(drawChart); 
-        </script>        
-        <div id="chart" style="width: 900px; height: 500px;" class="center"></div>
+    <br/>
+    <hr size="8" color="#B9D2FC"> 
+    <br/>
+    <div class="row">
+        <div class="inner-card center">
+            <div>
+                <h2 class="center">Active COVID-19 Cases in the World</h2>
+                <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
+                <script type="text/javascript">
+                    google.charts.load('current', {
+                        'packages':['geochart'],
+                        'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'});
+                    google.charts.setOnLoadCallback(drawChart); 
+                </script>        
+                <div id="chart" style="width: 75%; height: 60%;" class="center"></div>
+            </div>
+        </div>
     </div>
+  <br/><br/>
 </body>
 <footer>
     <div style="text-align:center" id="social">
