@@ -84,18 +84,19 @@ function updateInput() {
     localStorage.setItem("quantity", element.options[element.selectedIndex].value);
 }
 
-/** Creates a geochart and adds it to the page. */
+/** Fetches COVID-19 stats from servlet to create a geochart and add it to the page. */
 function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-          ['Country', 'Popularity'],
-          ['Germany', 200],
-          ['United States', 300],
-          ['Brazil', 400],
-          ['Canada', 500],
-          ['France', 600],
-          ['RU', 700]
-    ]);
-        var options = {};
+    fetch('/covid-data').then(response => response.json()).then((covidData) => {
+        const data = new google.visualization.DataTable();
+        data.addColumn('string', 'Country');
+        data.addColumn('number', 'Active Cases');
+        //data.addColumn('number', 'Recovered'); 
+        Object.keys(covidData).forEach((country) => {
+            data.addRow([country, covidData[country]]);
+        });
+        var options = {
+            colors: ['#FF0000']
+        };
         var chart = new google.visualization.GeoChart(document.getElementById('chart'));
         chart.draw(data, options);
 }
