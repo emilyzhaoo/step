@@ -56,7 +56,7 @@ function createTaskElement(task) {
     const sentence = document.createElement('span');
     sentence.innerText = ("Last Sunday, I was " + task.verb + " and I saw this " 
     + task.adj + " " + task.animal + ", who was also " + task.verb +"."); 
-    
+
     const deleteButtonElement = document.createElement('button');
     deleteButtonElement.innerText = 'Delete';
     deleteButtonElement.addEventListener('click', () => {
@@ -105,14 +105,14 @@ function drawChart() {
 /** Requests the translation */
 function requestTranslation() {
     const text = document.getElementById('text').textContent;
-    const languageCode = document.getElementById('language').value;
+    const targetLanguage = document.getElementById('language').value;
 
     const loadingContainer = document.getElementById('message');
     loadingContainer.innerText = 'Translating...';
 
     const params = new URLSearchParams();
     params.append('text', text);
-    params.append('languageCode', languageCode);
+    params.append('targetLanguage', targetLanguage);
 
     fetch('/translate', { method: 'POST', body: params}).then(response => 
         response.text()).then((translatedMessage) => {

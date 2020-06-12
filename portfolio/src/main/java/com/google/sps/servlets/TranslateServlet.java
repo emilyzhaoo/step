@@ -30,7 +30,7 @@ public class TranslateServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the request parameters.
     String originalText = request.getParameter("text");
-    String targetLanguage = request.getParameter("languageCode");
+    String targetLanguage = request.getParameter("targetLanguage");
 
     // Do the translation.
     Translate translate = TranslateOptions.getDefaultInstance().getService();
