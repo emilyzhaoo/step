@@ -32,7 +32,7 @@
         <div class="column">
             <div class="card #B9D2FC">
                 <form action="/data" method="POST" style="text-align:center">
-                <p><b>Welcome to the sentence generator.</b></p>
+                <p style="font-family: 'Courier New', Courier, monospace; font-size: 20px"><b>Welcome to the sentence generator.</b></p>
                 <br/>
                 <p>Enter a verb (ends in -ing):</p>
                 <textarea name="verb" placeholder="Verb" cols="20" rows"2"></textarea>                
@@ -50,7 +50,7 @@
         </div>
         <div class="column">
             <div class="card #B9D2FC">
-                <p><b>Sentences Generated</b></p>
+                <p style="font-family: 'Courier New', Courier, monospace; font-size: 20px"><b>Sentences Generated</b></p>
                 <br/>
                 <section>
                     <label for="quantity">Choose a Quantity to Display:</label>
@@ -81,7 +81,8 @@
     <div class="row">
         <div class="inner-card center">
             <div>
-                <h2 class="center">Active COVID-19 Cases in the World</h2>
+                <h2 class="center" style="width:75%">Active COVID-19 Cases in the World</h2>
+                <p class="center" id="instructions">Hover over the countries to see the number of active cases.</p> 
                 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> 
                 <script type="text/javascript">
                     google.charts.load('current', {

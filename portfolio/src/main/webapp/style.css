@@ -137,7 +137,7 @@ nav a:hover {
   border-right: solid 3px rgba(0,255,0,.75);
   white-space: nowrap;
   overflow: hidden;    
-  font-family: 'Source Code Pro', monospace;  
+  font-family: 'Source Code Pro', monospace;
   font-size: 28px;
   color: black;
   margin: 0 auto;
@@ -172,7 +172,7 @@ h2 {
     text-align: center;
     color: black; 
     margin: 0;
-    padding: 50px;
+    padding: 50px 25px 10px 25px;
 }
 
 .row {
@@ -230,4 +230,16 @@ hr {
 
 sentence-list {
     padding-left: 0px !important;
+}
+
+input:hover {
+  background-color: #B9D2FC; 
+  color: white;
+  font-weight: bold;
+}
+
+#instructions {
+    padding-bottom: 15px;
+    width: 100% !important;
+    font-family: 'Courier New', Courier, monospace;
 }
