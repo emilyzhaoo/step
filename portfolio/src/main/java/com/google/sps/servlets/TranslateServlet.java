@@ -1,4 +1,4 @@
-// Copyright 2019 Google LLC
+// Copyright 2020 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -30,12 +30,12 @@ public class TranslateServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the request parameters.
     String originalText = request.getParameter("text");
-    String languageCode = request.getParameter("languageCode");
+    String targetLanguage = request.getParameter("languageCode");
 
     // Do the translation.
     Translate translate = TranslateOptions.getDefaultInstance().getService();
     Translation translation =
-        translate.translate(originalText, Translate.TranslateOption.targetLanguage(languageCode));
+        translate.translate(originalText, Translate.TranslateOption.targetLanguage(targetLanguage));
     String translatedText = translation.getTranslatedText();
 
     // Output the translation.

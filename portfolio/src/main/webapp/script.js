@@ -56,7 +56,7 @@ function createTaskElement(task) {
     const sentence = document.createElement('span');
     sentence.innerText = ("Last Sunday, I was " + task.verb + " and I saw this " 
     + task.adj + " " + task.animal + ", who was also " + task.verb +"."); 
-  
+    
     const deleteButtonElement = document.createElement('button');
     deleteButtonElement.innerText = 'Delete';
     deleteButtonElement.addEventListener('click', () => {
