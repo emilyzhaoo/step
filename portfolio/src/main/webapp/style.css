@@ -43,7 +43,6 @@ body {
   text-align: center;
   text-decoration: none;
   border-radius: 50%;
-
 }
 
 .fa:hover {
@@ -70,7 +69,6 @@ body {
   margin-right: auto;
   width: 650px;
   font-family:monospace; 
-
 }
 
 .center {
@@ -79,7 +77,6 @@ body {
   margin-right: auto;
   width: 50%;
 }
-
 
 #buttons {
   transition-duration: 0.4s;
@@ -103,7 +100,6 @@ body {
     object-fit: scale-down;
 }
 
-
 nav ul {
     list-style: none; 
     margin: 0px;
@@ -121,7 +117,6 @@ nav {
     float: right;
     font-family:Verdana, Geneva, Tahoma, sans-serif; 
     font-size: 18px;
-
 }
 
 nav a {
@@ -185,7 +180,7 @@ h2 {
     margin-right: auto;
     width: 75%;
     padding-bottom: 20px;
-    padding-top: 20px; 
+    text-align: center;
 }
 
 .column {
@@ -201,12 +196,11 @@ h2 {
     background-color: #E8F0FE; 
 }
 
-.inner-card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    padding: 16px 10px 16px 10px;
+.panel {
+    background-color: whitesmoke;
     text-align: center;
-    background-color: white; 
-    width: 900px;
+    padding: 16px;
+    align-content: center;
 }
 
 textarea {
@@ -223,10 +217,35 @@ section {
     text-align: justify;
 }
 
-hr {
-    justify-content: center;
-    width: 75%;
+button {
+    padding: 5px 5px;
+    border-radius: 4px;
+    background-color: whitesmoke;
+    color: black;
+    border: 2px solid #2C7AFC; 
 }
+
+button:hover {
+  background-color: #B9D2FC; 
+  color: white;
+  font-weight: bold;
+}
+
+select {
+    background-color: #2C7AFC;
+    border: 0;
+    padding: 5px 5px;
+    color: white;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+input {
+    padding: 5px 5px;
+    border-radius: 4px;
+    background-color: whitesmoke;
+    color: black;
+    border: 2px solid #2C7AFC; 
 
 sentence-list {
     padding-left: 0px !important;

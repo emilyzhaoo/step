@@ -101,3 +101,23 @@ function drawChart() {
         chart.draw(data, options);
     });
 }
+
+/** Requests the translation */
+function requestTranslation() {
+    const text = document.getElementById('text').textContent;
+    const targetLanguage = document.getElementById('language').value;
+
+    const loadingContainer = document.getElementById('message');
+    loadingContainer.innerText = 'Translating...';
+
+    const params = new URLSearchParams();
+    params.append('text', text);
+    params.append('targetLanguage', targetLanguage);
+
+    fetch('/translate', { method: 'POST', body: params}).then(response => 
+        response.text()).then((translatedMessage) => {
+          // Sets header to the translated message
+          document.getElementById('text').innerText = translatedMessage;
+          loadingContainer.innerText = '';
+        });
+}
