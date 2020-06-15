@@ -246,6 +246,7 @@ input {
     background-color: whitesmoke;
     color: black;
     border: 2px solid #2C7AFC; 
+}
 
 sentence-list {
     padding-left: 0px !important;
@@ -261,4 +262,17 @@ input:hover {
     padding-bottom: 15px;
     width: 100% !important;
     font-family: 'Courier New', Courier, monospace;
+}
+
+hr {
+    justify-content: center;
+    width: 75%;
+}
+
+.inner-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding: 16px 10px 16px 10px;
+    text-align: center;
+    background-color: white; 
+    width: 900px;
 }
