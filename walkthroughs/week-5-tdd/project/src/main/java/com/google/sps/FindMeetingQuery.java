@@ -48,63 +48,57 @@ public final class FindMeetingQuery {
     if (events == NO_EVENTS || request.getAttendees() == NO_ATTENDEES) {
         return Arrays.asList((TimeRange.WHOLE_DAY)); 
     }
-    // Add event time ranges to array      
-    List<TimeRange> times = new ArrayList();
+    // Arraylist holds event times accordingly     
+    List<TimeRange> mandatory = new ArrayList();
+
     for (Event event: events) {
-        times.add(event.getWhen());
 
         // Check if attendees from event are requested for meeting
-        for (String attendee : event.getAttendees()) {
-            if (!(request.getAttendees().contains(attendee))) {
-                return Arrays.asList((TimeRange.WHOLE_DAY)); 
-            }
+        for (String attendee : event.getAttendees()) {            
+            // Check that attendee is a mandatory attendee
+            if ((request.getAttendees().contains(attendee)) ) {
+                mandatory.add(event.getWhen());
+            }           
         }
     }
 
-    // Sort list of time ranges in ascending order
-    Collections.sort(times, TimeRange.ORDER_BY_START);
-
     // Create empty Arraylist of options
     List<TimeRange> options = new ArrayList();
+
+    // Check if there are valid events during the day
+    if (mandatory.isEmpty()) {
+        return Arrays.asList((TimeRange.WHOLE_DAY)); 
+    }
+
+    // Sort list of time ranges in ascending order
+    Collections.sort(mandatory, TimeRange.ORDER_BY_START);
 
     int start = TimeRange.START_OF_DAY;
     int end = TimeRange.END_OF_DAY; 
     int lastEventEnd = 0;
 
-    for (int i = 0; i <= (times.size() -1); i++)  {
+    for (int i = 0; i <= (mandatory.size() -1); i++)  {
         // Get event start and end time
-        int eventStart = times.get(i).start();
-        int eventEnd = times.get(i).end(); 
+        int eventStart = mandatory.get(i).start();
+        int eventEnd = mandatory.get(i).end(); 
     
         // Check for overlap
         if (start < eventStart) {
-            if (start != eventStart) {
-                // Check if there is enough room for a meeting
-                if ((eventStart - start) > request.getDuration() || (eventStart - start) == request.getDuration()) {
-                    options.add(TimeRange.fromStartEnd(start,eventStart,false)); 
-                }
-                start = eventEnd; 
-                lastEventEnd = eventEnd;
+            // Check if there is enough room for a meeting
+            if ((eventStart - start) >= request.getDuration()) {
+                options.add(TimeRange.fromStartEnd(start,eventStart,false)); 
             }
-            else {
-                start = eventEnd;
-                lastEventEnd = eventEnd; 
-            }
-        }
-        else {
-            if (start < eventEnd) {
-                start = eventEnd;
-                lastEventEnd = eventEnd;
-            }
-            else {
-                lastEventEnd = start; 
-            }
-        }
+        }  
+        start = Math.max(start, eventEnd);
+        lastEventEnd = start;
     } 
 
     // Check if last event ends when day ends
     if (lastEventEnd != end+1) {
-        options.add(TimeRange.fromStartEnd(lastEventEnd,end,true)); 
+        // Check if there is enough room for a meeting
+        if ((end+1 - lastEventEnd) >= request.getDuration()) {
+            options.add(TimeRange.fromStartEnd(lastEventEnd,end,true)); 
+        }
     }
 
     // Return timeRange options list
