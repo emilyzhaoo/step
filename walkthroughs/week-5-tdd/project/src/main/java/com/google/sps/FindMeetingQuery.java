@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 
@@ -32,9 +33,6 @@ public final class FindMeetingQuery {
   // the meeting request
   private MeetingRequest request; 
 
-  private static final Collection<Event> NO_EVENTS = Collections.emptySet();
-  private static final Collection<String> NO_ATTENDEES = Collections.emptySet();
-
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
  
     this.events = events;
@@ -45,43 +43,66 @@ public final class FindMeetingQuery {
         return Arrays.asList(); 
     }
     // Check for no events or no attendees
-    if (events == NO_EVENTS || request.getAttendees() == NO_ATTENDEES) {
-        return Arrays.asList((TimeRange.WHOLE_DAY)); 
+    if (events.isEmpty()) {
+        if(request.getAttendees().isEmpty() && request.getOptionalAttendees().isEmpty()) {
+            return Arrays.asList((TimeRange.WHOLE_DAY)); 
+        }
     }
+
     // Arraylist holds event times accordingly     
     List<TimeRange> mandatory = new ArrayList();
-
+    List<TimeRange> withOptional = new ArrayList();
     for (Event event: events) {
-
         // Check if attendees from event are requested for meeting
         for (String attendee : event.getAttendees()) {            
             // Check that attendee is a mandatory attendee
             if ((request.getAttendees().contains(attendee)) ) {
                 mandatory.add(event.getWhen());
-            }           
+                withOptional.add(event.getWhen());
+            }
+            // Check if attendee is an optional attendee
+            else if ((request.getOptionalAttendees().contains(attendee))) {
+                withOptional.add(event.getWhen()); 
+            }                
         }
     }
-
-    // Create empty Arraylist of options
-    List<TimeRange> options = new ArrayList();
-
+    
     // Check if there are valid events during the day
-    if (mandatory.isEmpty()) {
+    if (mandatory.isEmpty() && withOptional.isEmpty()) {
         return Arrays.asList((TimeRange.WHOLE_DAY)); 
     }
 
-    // Sort list of time ranges in ascending order
-    Collections.sort(mandatory, TimeRange.ORDER_BY_START);
+    // Get list of options for all mandatory and optional attendees
+    List<TimeRange> optionsForAll = getOptions(withOptional); 
 
+    if (optionsForAll.isEmpty()) {
+        // Get list of options for only mandatory attendees
+        List<TimeRange> optionsForMandatory = getOptions(mandatory); 
+        if (optionsForMandatory.isEmpty()){
+            return Arrays.asList(); 
+        }
+        return optionsForMandatory;
+        
+    }
+    return optionsForAll; 
+  }
+
+  /** Creates list of options for meeting time*/
+  public List<TimeRange> getOptions(List<TimeRange> collection) {
+    
+    // Create empty Arraylist of options
+    List<TimeRange> options = new ArrayList();
+
+    // Sort list of time ranges in ascending order
+    Collections.sort(collection, TimeRange.ORDER_BY_START);
     int start = TimeRange.START_OF_DAY;
-    int end = TimeRange.END_OF_DAY; 
     int lastEventEnd = 0;
 
-    for (int i = 0; i <= (mandatory.size() -1); i++)  {
+    for (TimeRange event: collection) {
         // Get event start and end time
-        int eventStart = mandatory.get(i).start();
-        int eventEnd = mandatory.get(i).end(); 
-    
+        int eventStart = event.start();
+        int eventEnd = event.end(); 
+
         // Check for overlap
         if (start < eventStart) {
             // Check if there is enough room for a meeting
@@ -92,16 +113,16 @@ public final class FindMeetingQuery {
         start = Math.max(start, eventEnd);
         lastEventEnd = start;
     } 
-
-    // Check if last event ends when day ends
-    if (lastEventEnd != end+1) {
-        // Check if there is enough room for a meeting
-        if ((end+1 - lastEventEnd) >= request.getDuration()) {
-            options.add(TimeRange.fromStartEnd(lastEventEnd,end,true)); 
+    
+    if (!(options.isEmpty())) {
+        // Check if last event ends when day ends
+        if (lastEventEnd != TimeRange.END_OF_DAY+1) {
+            // Check if there is enough room for a meeting
+            if ((TimeRange.END_OF_DAY+1 - lastEventEnd) >= request.getDuration()) {
+                options.add(TimeRange.fromStartEnd(lastEventEnd,TimeRange.END_OF_DAY,true)); 
+            }
         }
     }
-
-    // Return timeRange options list
-    return options;
+    return options; 
   }
 } 
