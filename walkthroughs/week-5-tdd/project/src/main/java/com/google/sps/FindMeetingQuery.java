@@ -50,34 +50,34 @@ public final class FindMeetingQuery {
     }
 
     // Arraylist holds event times accordingly     
-    List<TimeRange> mandatory = new ArrayList();
-    List<TimeRange> withOptional = new ArrayList();
+    List<TimeRange> mandatoryEvents = new ArrayList();
+    List<TimeRange> withOptionalEvents = new ArrayList();
     for (Event event: events) {
         // Check if attendees from event are requested for meeting
         for (String attendee : event.getAttendees()) {            
-            // Check that attendee is a mandatory attendee
+            // Check that attendee is a mandatoryattendee
             if ((request.getAttendees().contains(attendee)) ) {
-                mandatory.add(event.getWhen());
-                withOptional.add(event.getWhen());
+                mandatoryEvents.add(event.getWhen());
+                withOptionalEvents.add(event.getWhen());
             }
             // Check if attendee is an optional attendee
             else if ((request.getOptionalAttendees().contains(attendee))) {
-                withOptional.add(event.getWhen()); 
+                withOptionalEvents.add(event.getWhen()); 
             }                
         }
     }
     
     // Check if there are valid events during the day
-    if (mandatory.isEmpty() && withOptional.isEmpty()) {
+    if (mandatoryEvents.isEmpty() && withOptionalEvents.isEmpty()) {
         return Arrays.asList((TimeRange.WHOLE_DAY)); 
     }
 
     // Get list of options for all mandatory and optional attendees
-    List<TimeRange> optionsForAll = getOptions(withOptional); 
+    List<TimeRange> optionsForAll = getOptions(withOptionalEvents); 
 
     if (optionsForAll.isEmpty()) {
         // Get list of options for only mandatory attendees
-        List<TimeRange> optionsForMandatory = getOptions(mandatory); 
+        List<TimeRange> optionsForMandatory = getOptions(mandatoryEvents); 
         if (optionsForMandatory.isEmpty()){
             return Arrays.asList(); 
         }
