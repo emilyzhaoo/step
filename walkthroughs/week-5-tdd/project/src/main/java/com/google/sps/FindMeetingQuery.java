@@ -116,7 +116,7 @@ public final class FindMeetingQuery {
     
     if (!(options.isEmpty())) {
         // Check if last event ends when day ends
-        if (lastEventEnd != TimeRange.END_OF_DAY+1) {
+        if (lastEventEnd < TimeRange.END_OF_DAY) {
             // Check if there is enough room for a meeting
             if ((TimeRange.END_OF_DAY+1 - lastEventEnd) >= request.getDuration()) {
                 options.add(TimeRange.fromStartEnd(lastEventEnd,TimeRange.END_OF_DAY,true)); 
