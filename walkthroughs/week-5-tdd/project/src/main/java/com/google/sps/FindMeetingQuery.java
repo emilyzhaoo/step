@@ -49,8 +49,9 @@ public final class FindMeetingQuery {
         }
     }
 
-    // Arraylist holds event times accordingly     
+    // Arraylist holds event times with all mandatory attendees    
     List<TimeRange> mandatoryEvents = new ArrayList();
+    // Arraylist holds event times with all attendees, mandatory and optional
     List<TimeRange> withOptionalEvents = new ArrayList();
     for (Event event: events) {
         // Check if attendees from event are requested for meeting
@@ -78,11 +79,7 @@ public final class FindMeetingQuery {
     if (optionsForAll.isEmpty()) {
         // Get list of options for only mandatory attendees
         List<TimeRange> optionsForMandatory = getOptions(mandatoryEvents); 
-        if (optionsForMandatory.isEmpty()){
-            return Arrays.asList(); 
-        }
         return optionsForMandatory;
-        
     }
     return optionsForAll; 
   }
